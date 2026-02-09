@@ -3,9 +3,9 @@
 2. Edit [localisation_work_file.json](output/localisation_work_file.json)
 3. Create your pull request
 
-## Workflow
+## Project owner
 
-#### On new game update
+#### Workflow: on new game update
 1. Use FModel to export following files:
    - localisation file `Sandfall\Content\Localization\Game\zh-Hans\Game.locres` in both `json` and `raw` format from `packchunk0-Windows.pak`.
    - File `Sandfall\Content\Gameplay\Lumina\DT_PassiveEffects.json` from `packchunk0-Windows.utoc`.
