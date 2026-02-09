@@ -2,7 +2,6 @@ import json
 import subprocess
 from pathlib import Path
 
-import typer
 from pylocres import LocresFile
 
 MODE_NAME = "EnhancedDescriptions_zhHans-tmxk_P"
@@ -15,6 +14,7 @@ OUTPUT_LOCRES = MOD_BASE / "Sandfall" / "Content" / "Localization" / "Game" / "z
 
 
 def encode_locres(locres, translations):
+    """Encode locres file with new translations."""
     replaced_count = 0
     for key, translation in translations.items():
         ns, res_key = key.split(".")
@@ -26,7 +26,7 @@ def encode_locres(locres, translations):
         locres.write(str(OUTPUT_LOCRES))
     except Exception as e:
         print(f"Error writing updated locres file {OUTPUT_LOCRES}: {e}")
-        raise typer.Exit(code=1)
+        raise SystemExit(1) from e
     
     print(f"Replaced {replaced_count} values")
 
@@ -40,11 +40,11 @@ def generate_pak():
 
     if not MOD_BASE.exists():
         print(f"Error: MOD_BASE folder does not exist: {MOD_BASE}")
-        raise typer.Exit(code=1)
+        raise SystemExit(1)
 
     if not unreal_pak_exe.exists():
         print(f"Error: UnrealPak.exe not found at {unreal_pak_exe}")
-        raise typer.Exit(code=1)
+        raise SystemExit(1)
 
     mod_base_abs = MOD_BASE.resolve()
     filelist_content = f'"{mod_base_abs}\\*.*" "..\\..\\..\\*.*"\n'
@@ -59,7 +59,7 @@ def generate_pak():
         print(f"Created: {pak_output}")
     except subprocess.CalledProcessError as e:
         print(f"Error running UnrealPak: {e}")
-        raise typer.Exit(code=1)
+        raise SystemExit(1) from e
 
 
 def main():
@@ -68,7 +68,7 @@ def main():
         locres.read(str(LOC_ORI))
     except Exception as e:
         print(f"Error reading locres file {LOC_ORI}: {e}")
-        raise typer.Exit(code=1)
+        raise SystemExit(1)
 
     with open(LOC_WORK_FILE, encoding="utf-8") as f:
         translations = json.load(f)
