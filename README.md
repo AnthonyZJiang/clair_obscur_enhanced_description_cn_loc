@@ -1,3 +1,8 @@
+## Contribute
+1. Fork the repository
+2. Edit [localisation_work_file.json](output/localisation_work_file.json)
+3. Create your pull request
+
 ## Workflow
 
 #### On new game update
